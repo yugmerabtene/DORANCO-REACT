@@ -1,5 +1,10 @@
 ### **Syllabus : Formation React.js**
 
+### **Organisation des modules**  
+- **Module 1 : JavaScript**  
+- **Module 2 : TypeScript**  
+- **Module 3 : React.js** 
+
 #### **Module 1 : Introduction à JavaScript**
 
 **1.1 : Les bases de JavaScript**  
@@ -85,7 +90,3 @@
 
 ---
 
-### **Organisation des modules**  
-- **Module 1 : JavaScript**  
-- **Module 2 : TypeScript**  
-- **Module 3 : React.js** 
