@@ -907,7 +907,384 @@ export default Utilisateurs;
 1. Créez un composant `Articles` qui affiche une liste d'articles depuis une API.
 2. Ajoutez une fonction de recherche pour filtrer les articles par titre.
 
+## Étape 7 : Création d'une application To-Do List
+
+### Structure des dossiers du projet
+
+Pour organiser votre projet, nous allons créer un dossier `components` dans le dossier `src` pour y placer tous les composants de l'application.
+
+Voici la structure recommandée :
+
+```
+mon-app/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── TodoList.js
+│   │   ├── TodoList.css
+│   ├── App.js
+│   ├── index.js
+│   ├── index.css
+├── package.json
+```
+
+- **`components/`** : Contiendra tous les composants réutilisables, comme `TodoList.js`.
+- **`App.js`** : Le composant principal où les composants enfants seront intégrés.
+- **`TodoList.css`** : Fichier pour styliser spécifiquement le composant `TodoList`.
+
+### Étape 1 : Créer la To-Do List avec des classes
+
+Nous allons maintenant créer une application de to-do list complète en utilisant des composants basés sur des classes. Cette application permettra à l'utilisateur d'ajouter, de supprimer et de marquer des tâches comme terminées.
+
+Nous allons maintenant créer une application de to-do list complète en utilisant des composants basés sur des classes. Cette application permettra à l'utilisateur d'ajouter, de supprimer et de marquer des tâches comme terminées.
+
+### Étape 1 : Structure du projet
+
+Assurez-vous d'avoir un projet React déjà configuré (voir les étapes précédentes pour créer un projet React).
+
+Créez un fichier `TodoList.js` dans le dossier `src`.
+
+### Étape 2 : Code complet de l'application avec classes
+
+```javascript
+import React, { Component } from 'react';
+import './TodoList.css';
+
+class TodoList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: [],
+      taskInput: ''
+    };
+  }
+
+  handleInputChange = (event) => {
+    this.setState({ taskInput: event.target.value });
+  };
+
+  addTask = () => {
+    const { taskInput, tasks } = this.state;
+    if (taskInput.trim() === '') return;
+    this.setState({
+      tasks: [...tasks, { text: taskInput, completed: false }],
+      taskInput: ''
+    });
+  };
+
+  toggleTask = (index) => {
+    const newTasks = this.state.tasks.map((task, i) => {
+      if (i === index) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    this.setState({ tasks: newTasks });
+  };
+
+  deleteTask = (index) => {
+    const newTasks = this.state.tasks.filter((_, i) => i !== index);
+    this.setState({ tasks: newTasks });
+  };
+
+  render() {
+    const { tasks, taskInput } = this.state;
+
+    return (
+      <div className="todo-list">
+        <h1>To-Do List</h1>
+        <div className="input-container">
+          <input
+            type="text"
+            value={taskInput}
+            onChange={this.handleInputChange}
+            placeholder="Ajouter une tâche..."
+          />
+          <button onClick={this.addTask}>Ajouter</button>
+        </div>
+        <ul>
+          {tasks.map((task, index) => (
+            <li key={index} className={task.completed ? 'completed' : ''}>
+              <span onClick={() => this.toggleTask(index)}>{task.text}</span>
+              <button onClick={() => this.deleteTask(index)}>Supprimer</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default TodoList;
+```
+
+### Étape 3 : Style CSS
+
+Créez un fichier `TodoList.css` pour styliser l'application.
+
+```css
+.todo-list {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.input-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+li.completed span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+li span {
+  cursor: pointer;
+}
+```
+
+### Étape 4 : Intégration dans `App.js`
+
+Mettez à jour votre fichier `App.js` pour inclure le composant `TodoList`.
+
+```javascript
+import React from 'react';
+import TodoList from './TodoList';
+
+function App() {
+  return (
+    <div>
+      <TodoList />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Fonctionnalités de l'application
+
+1. **Ajouter une tâche** : L'utilisateur peut saisir du texte dans le champ d'entrée et cliquer sur "Ajouter" pour ajouter une nouvelle tâche.
+2. **Marquer comme terminée** : En cliquant sur une tâche, elle est marquée comme terminée (ou réactivée).
+3. **Supprimer une tâche** : Un bouton "Supprimer" est disponible pour chaque tâche.
+
+### Exercices
+
+1. Ajoutez une fonctionnalité pour modifier une tâche existante.
+2. Implémentez une option pour supprimer toutes les tâches terminées.
+3. Ajoutez un compteur affichant le nombre de tâches restantes.
+
+Nous allons maintenant créer une application de to-do list complète. Cette application permettra à l'utilisateur d'ajouter, de supprimer et de marquer des tâches comme terminées.
+
+### Étape 1 : Structure du projet
+
+Assurez-vous d'avoir un projet React déjà configuré (voir les étapes précédentes pour créer un projet React).
+
+Créez un fichier `TodoList.js` dans le dossier `src`.
+
+### Étape 2 : Code complet de l'application
+
+```javascript
+import React, { useState } from 'react';
+import './TodoList.css';
+
+function TodoList() {
+  const [tasks, setTasks] = useState([]);
+  const [taskInput, setTaskInput] = useState('');
+
+  const addTask = () => {
+    if (taskInput.trim() === '') return;
+    setTasks([...tasks, { text: taskInput, completed: false }]);
+    setTaskInput('');
+  };
+
+  const toggleTask = (index) => {
+    const newTasks = tasks.map((task, i) => {
+      if (i === index) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(newTasks);
+  };
+
+  const deleteTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+  };
+
+  return (
+    <div className="todo-list">
+      <h1>To-Do List</h1>
+      <div className="input-container">
+        <input
+          type="text"
+          value={taskInput}
+          onChange={(e) => setTaskInput(e.target.value)}
+          placeholder="Ajouter une tâche..."
+        />
+        <button onClick={addTask}>Ajouter</button>
+      </div>
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index} className={task.completed ? 'completed' : ''}>
+            <span onClick={() => toggleTask(index)}>{task.text}</span>
+            <button onClick={() => deleteTask(index)}>Supprimer</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default TodoList;
+```
+
+### Étape 3 : Style CSS
+
+Créez un fichier `TodoList.css` pour styliser l'application.
+
+```css
+.todo-list {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.input-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+li.completed span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+li span {
+  cursor: pointer;
+}
+```
+
+### Étape 4 : Intégration dans `App.js`
+
+Mettez à jour votre fichier `App.js` pour inclure le composant `TodoList`.
+
+```javascript
+import React from 'react';
+import TodoList from './TodoList';
+
+function App() {
+  return (
+    <div>
+      <TodoList />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Fonctionnalités de l'application
+
+1. **Ajouter une tâche** : L'utilisateur peut saisir du texte dans le champ d'entrée et cliquer sur "Ajouter" pour ajouter une nouvelle tâche.
+2. **Marquer comme terminée** : En cliquant sur une tâche, elle est marquée comme terminée (ou réactivée).
+3. **Supprimer une tâche** : Un bouton "Supprimer" est disponible pour chaque tâche.
+
+### Exercices
+
+1. Ajoutez une fonctionnalité pour modifier une tâche existante.
+2. Implémentez une option pour supprimer toutes les tâches terminées.
+3. Ajoutez un compteur affichant le nombre de tâches restantes.
+
 ## Conclusion
+
+React est une bibliothèque puissante qui permet de créer des applications web modernes. En suivant ces étapes, vous avez appris les bases de React : composants, état, gestion des événements, et interaction avec des APIs. Vous avez également construit une application complète de to-do list, illustrant l'utilisation pratique des concepts React. Pour aller plus loin, explorez des concepts avancés comme les hooks personnalisés, le routing avec React Router, et la gestion de l'état global avec Redux.
 
 React est une bibliothèque puissante qui permet de créer des applications web modernes. En suivant ces étapes, vous avez appris les bases de React : composants, état, gestion des événements, et interaction avec des APIs. Pour aller plus loin, explorez des concepts avancés comme les hooks personnalisés, le routing avec React Router, et la gestion de l'état global avec Redux.
 
