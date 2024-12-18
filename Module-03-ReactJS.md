@@ -77,6 +77,83 @@ Lorsque vous créez un projet React, voici les principaux dossiers et fichiers :
 
 Un composant est une fonction ou une classe qui retourne un morceau d'interface utilisateur (du JSX).
 
+### Composant fonctionnel
+
+Un composant fonctionnel est une simple fonction JavaScript qui accepte des `props` comme paramètre et retourne du JSX. Les composants fonctionnels sont légers, faciles à lire, et sont souvent privilégiés pour des composants simples.
+
+#### Exemple d'un composant fonctionnel
+
+```javascript
+function Bonjour(props) {
+  return <h1>Bonjour, {props.nom}!</h1>;
+}
+
+export default Bonjour;
+```
+
+### Composant de classe
+
+Un composant de classe hérite de `React.Component`. Il est plus puissant qu'un composant fonctionnel, car il peut gérer l'état local avec `this.state` et accéder à des méthodes du cycle de vie du composant.
+
+#### Exemple d'un composant de classe
+
+```javascript
+import React, { Component } from 'react';
+
+class BonjourClasse extends Component {
+  render() {
+    return <h1>Bonjour, {this.props.nom}!</h1>;
+  }
+}
+
+export default BonjourClasse;
+```
+
+### Différences entre composant fonctionnel et composant de classe
+
+| Aspect                  | Composant fonctionnel                  | Composant de classe                  |
+|-------------------------|-----------------------------------------|--------------------------------------|
+| **Structure**           | Fonction JavaScript simple             | Classe ES6 qui hérite de `React.Component` |
+| **Gestion de l'état**   | Utilise les hooks comme `useState`     | Utilise `this.state`                |
+| **Cycle de vie**        | Nécessite des hooks comme `useEffect`  | Méthodes comme `componentDidMount` et `componentDidUpdate` |
+| **Performance**         | Plus performant, car il est plus léger | Moins performant pour les petits composants |
+
+### Quand utiliser quoi ?
+
+- **Composants fonctionnels** : Lorsque le composant est simple et n'a pas besoin de gérer un état ou d'utiliser des méthodes du cycle de vie.
+- **Composants de classe** : Lorsque des fonctionnalités avancées comme le cycle de vie ou un état complexe sont nécessaires.
+
+### Utilisation d'un composant
+
+Pour utiliser ces composants dans `App.js` :
+
+```javascript
+import React from 'react';
+import Bonjour from './Bonjour';
+import BonjourClasse from './BonjourClasse';
+
+function App() {
+  return (
+    <div>
+      <Bonjour nom="Alice" />
+      <BonjourClasse nom="Bob" />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Résultat attendu
+Vous verrez :
+
+```
+Bonjour, Alice!
+Bonjour, Bob!
+```
+
+Un composant est une fonction ou une classe qui retourne un morceau d'interface utilisateur (du JSX).
+
 ### Exemple d'un composant fonctionnel
 
 ```javascript
