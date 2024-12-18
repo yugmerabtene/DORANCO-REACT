@@ -234,6 +234,113 @@ export default Bonjour;
 
 ### Composant de classe
 
+Un composant de classe hérite de `React.Component`. Il est plus puissant qu'un composant fonctionnel, car il peut gérer l'état local avec `this.state` et accéder à des méthodes du cycle de vie du composant. De plus, les composants de classe utilisent les **props**, qui sont des paramètres passés au composant pour personnaliser son comportement ou son affichage.
+
+#### Exemple d'un composant de classe
+
+```javascript
+import React, { Component } from 'react';
+
+class BonjourClasse extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Bonjour, {this.props.nom}!</h1>
+        <p>Vous avez {this.props.age} ans.</p>
+      </div>
+    );
+  }
+}
+
+export default BonjourClasse;
+```
+
+#### Utilisation d'un composant de classe avec des props
+
+Pour utiliser ce composant dans `App.js` :
+
+```javascript
+import React from 'react';
+import BonjourClasse from './BonjourClasse';
+
+function App() {
+  return (
+    <div>
+      <BonjourClasse nom="Alice" age={25} />
+      <BonjourClasse nom="Bob" age={30} />
+    </div>
+  );
+}
+
+export default App;
+```
+
+#### Concepts clés sur les props
+
+- **Immutables** : Les props ne peuvent pas être modifiées par le composant qui les reçoit.
+- **Transmission des données** : Les props permettent de transmettre des données d'un composant parent à un composant enfant.
+- **Déstructuration** : Pour simplifier le code, vous pouvez déstructurer les props :
+
+```javascript
+class BonjourClasse extends Component {
+  render() {
+    const { nom, age } = this.props;
+    return (
+      <div>
+        <h1>Bonjour, {nom}!</h1>
+        <p>Vous avez {age} ans.</p>
+      </div>
+    );
+  }
+}
+```
+
+### Comparaison avec un composant fonctionnel utilisant les props
+
+Un composant fonctionnel gère les props de manière similaire, mais avec une syntaxe plus concise.
+
+#### Exemple d'un composant fonctionnel
+
+```javascript
+function Bonjour(props) {
+  return (
+    <div>
+      <h1>Bonjour, {props.nom}!</h1>
+      <p>Vous avez {props.age} ans.</p>
+    </div>
+  );
+}
+
+export default Bonjour;
+```
+
+#### Utilisation
+
+```javascript
+import React from 'react';
+import Bonjour from './Bonjour';
+
+function App() {
+  return (
+    <div>
+      <Bonjour nom="Charlie" age={35} />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Différences entre composant fonctionnel et composant de classe pour les props
+
+| Aspect                  | Composant fonctionnel                  | Composant de classe                  |
+|-------------------------|-----------------------------------------|--------------------------------------|
+| **Gestion des props**   | Accès direct via `props` dans les arguments de la fonction | Accès via `this.props`               |
+| **Simplicité**          | Plus concis                           | Moins concis                         |
+| **Déstructuration**    | Possible dans les arguments            | Possible dans `this.props`           |
+
+Les deux approches sont équivalentes pour gérer les props, mais les composants fonctionnels sont généralement préférés pour leur simplicité.
+
 Un composant de classe hérite de `React.Component`. Il est plus puissant qu'un composant fonctionnel, car il peut gérer l'état local avec `this.state` et accéder à des méthodes du cycle de vie du composant.
 
 #### Exemple d'un composant de classe
