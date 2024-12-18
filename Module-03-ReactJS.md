@@ -73,7 +73,288 @@ Lorsque vous créez un projet React, voici les principaux dossiers et fichiers :
 - **`public/`** : Contient les fichiers statiques accessibles directement par le navigateur (comme `index.html`).
 - **`package.json`** : Fichier de configuration pour npm.
 
+## Étape 3 : Ajouter du CSS dans React
+
+React permet d'ajouter du CSS de différentes manières pour styliser les composants. Voici les options les plus courantes :
+
+### 1. CSS global
+
+Ajoutez un fichier CSS global dans votre projet et importez-le dans `index.js` ou `App.js`.
+
+#### Exemple
+
+Créez un fichier `styles.css` dans le dossier `src` :
+
+```css
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: blue;
+}
+```
+
+Importez ce fichier dans `index.js` :
+
+```javascript
+import './styles.css';
+```
+
+### 2. CSS spécifique à un composant
+
+Créez un fichier CSS spécifique pour chaque composant et importez-le dans ce composant.
+
+#### Exemple
+
+Créez un fichier `Bonjour.css` :
+
+```css
+.titre {
+  font-size: 24px;
+  color: green;
+}
+```
+
+Mettez à jour le composant `Bonjour.js` :
+
+```javascript
+import React from 'react';
+import './Bonjour.css';
+
+function Bonjour(props) {
+  return <h1 className="titre">Bonjour, {props.nom}!</h1>;
+}
+
+export default Bonjour;
+```
+
+### 3. CSS inline
+
+Ajoutez du CSS directement dans le JSX sous forme d'objet.
+
+#### Exemple
+
+```javascript
+function BonjourInline(props) {
+  const style = {
+    fontSize: '24px',
+    color: 'red'
+  };
+
+  return <h1 style={style}>Bonjour, {props.nom}!</h1>;
+}
+
+export default BonjourInline;
+```
+
+### 4. CSS Modules
+
+CSS Modules permettent de scoper les styles localement à un composant.
+
+#### Exemple
+
+Créez un fichier `Bonjour.module.css` :
+
+```css
+.titre {
+  font-size: 24px;
+  color: purple;
+}
+```
+
+Mettez à jour le composant `Bonjour.js` :
+
+```javascript
+import React from 'react';
+import styles from './Bonjour.module.css';
+
+function Bonjour(props) {
+  return <h1 className={styles.titre}>Bonjour, {props.nom}!</h1>;
+}
+
+export default Bonjour;
+```
+
+### 5. Frameworks CSS
+
+Vous pouvez également utiliser des frameworks CSS comme Bootstrap ou Tailwind CSS en les installant via npm et en les intégrant dans votre projet.
+
+#### Exemple avec Bootstrap
+
+1. Installez Bootstrap :
+
+   ```bash
+   npm install bootstrap
+   ```
+
+2. Importez-le dans `index.js` :
+
+   ```javascript
+   import 'bootstrap/dist/css/bootstrap.min.css';
+   ```
+
+3. Utilisez les classes Bootstrap dans vos composants :
+
+   ```javascript
+   function Button() {
+     return <button className="btn btn-primary">Cliquez-moi</button>;
+   }
+
+   export default Button;
+   ```
+
+Lorsque vous créez un projet React, voici les principaux dossiers et fichiers :
+
+- **`src/`** : Contient le code source de l'application.
+  - `App.js` : Composant principal de l'application.
+  - `index.js` : Point d'entrée principal de l'application.
+- **`public/`** : Contient les fichiers statiques accessibles directement par le navigateur (comme `index.html`).
+- **`package.json`** : Fichier de configuration pour npm.
+
 ## Étape 3 : Composants React
+
+Un composant est une fonction ou une classe qui retourne un morceau d'interface utilisateur (du JSX).
+
+### Composant fonctionnel
+
+Un composant fonctionnel est une simple fonction JavaScript qui accepte des `props` comme paramètre et retourne du JSX. Les composants fonctionnels sont légers, faciles à lire, et sont souvent privilégiés pour des composants simples.
+
+#### Exemple d'un composant fonctionnel
+
+```javascript
+function Bonjour(props) {
+  return <h1>Bonjour, {props.nom}!</h1>;
+}
+
+export default Bonjour;
+```
+
+### Composant de classe
+
+Un composant de classe hérite de `React.Component`. Il est plus puissant qu'un composant fonctionnel, car il peut gérer l'état local avec `this.state` et accéder à des méthodes du cycle de vie du composant.
+
+#### Exemple d'un composant de classe
+
+```javascript
+import React, { Component } from 'react';
+
+class BonjourClasse extends Component {
+  render() {
+    return <h1>Bonjour, {this.props.nom}!</h1>;
+  }
+}
+
+export default BonjourClasse;
+```
+
+### Utilisation de CSS avec React
+
+React prend en charge plusieurs manières d'utiliser du CSS pour styliser les composants. Voici quelques-unes des approches courantes :
+
+#### 1. Ajouter un fichier CSS global
+
+1. Créez un fichier CSS, par exemple `App.css`.
+
+   ```css
+   h1 {
+     color: blue;
+   }
+   ```
+
+2. Importez ce fichier dans votre composant :
+
+   ```javascript
+   import './App.css';
+
+   function Bonjour(props) {
+     return <h1>Bonjour, {props.nom}!</h1>;
+   }
+
+   export default Bonjour;
+   ```
+
+#### 2. Styles en ligne
+
+Vous pouvez définir des styles directement dans le composant avec une syntaxe d'objet JavaScript :
+
+```javascript
+function Bonjour(props) {
+  const style = {
+    color: 'green',
+    fontSize: '20px',
+  };
+
+  return <h1 style={style}>Bonjour, {props.nom}!</h1>;
+}
+
+export default Bonjour;
+```
+
+#### 3. Modules CSS
+
+Les modules CSS permettent de scoper les styles à un composant spécifique.
+
+1. Créez un fichier CSS module, par exemple `Bonjour.module.css` :
+
+   ```css
+   titre {
+     color: red;
+     text-align: center;
+   }
+   ```
+
+2. Importez et appliquez les styles :
+
+   ```javascript
+   import styles from './Bonjour.module.css';
+
+   function Bonjour(props) {
+     return <h1 className={styles.titre}>Bonjour, {props.nom}!</h1>;
+   }
+
+   export default Bonjour;
+   ```
+
+#### 4. Styled-components
+
+Styled-components est une bibliothèque pour gérer le CSS dans les fichiers JavaScript en utilisant les balises template literals.
+
+1. Installez la bibliothèque :
+
+   ```bash
+   npm install styled-components
+   ```
+
+2. Utilisez-la dans un composant :
+
+   ```javascript
+   import styled from 'styled-components';
+
+   const Titre = styled.h1`
+     color: purple;
+     font-size: 24px;
+   `;
+
+   function Bonjour(props) {
+     return <Titre>Bonjour, {props.nom}!</Titre>;
+   }
+
+   export default Bonjour;
+   ```
+
+### Différences entre ces méthodes
+
+| Méthode              | Portée des styles       | Facilité d'utilisation | Modularité |
+|----------------------|-------------------------|-------------------------|------------|
+| Fichier CSS global   | Globale                | Simple                 | Faible     |
+| Styles en ligne      | Composant unique       | Simple                 | Moyenne    |
+| Modules CSS          | Scopée par composant   | Moyennement simple     | Bonne      |
+| Styled-components    | Scopée par composant   | Avancée                | Excellente |
+
+Choisissez la méthode qui convient le mieux à votre projet en fonction de vos besoins en modularité et complexité.
 
 Un composant est une fonction ou une classe qui retourne un morceau d'interface utilisateur (du JSX).
 
