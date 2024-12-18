@@ -87,7 +87,109 @@ function Bonjour(props) {
 export default Bonjour;
 ```
 
+### Exemple d'un composant de classe
+
+Un composant de classe hérite de `React.Component` et doit avoir une méthode `render` qui retourne du JSX :
+
+```javascript
+import React, { Component } from 'react';
+
+class BonjourClasse extends Component {
+  render() {
+    return <h1>Bonjour, {this.props.nom}!</h1>;
+  }
+}
+
+export default BonjourClasse;
+```
+
 ### Utilisation d'un composant
+
+Pour utiliser ces composants dans `App.js` :
+
+```javascript
+import React from 'react';
+import Bonjour from './Bonjour';
+import BonjourClasse from './BonjourClasse';
+
+function App() {
+  return (
+    <div>
+      <Bonjour nom="Alice" />
+      <BonjourClasse nom="Bob" />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Résultat attendu
+Vous verrez :
+
+```
+Bonjour, Alice!
+Bonjour, Bob!
+```
+
+```javascript
+function Bonjour(props) {
+  return <h1>Bonjour, {props.nom}!</h1>;
+}
+
+export default Bonjour;
+```
+
+### Utilisation d'un composant
+
+Pour utiliser un composant dans React :
+
+1. **Importer le composant** : Dans le fichier où vous souhaitez l'utiliser, importez le composant avec `import`.
+2. **Ajouter le composant dans le JSX** : Utilisez le nom du composant comme une balise HTML.
+
+Voici un exemple complet :
+
+#### Composant `Bonjour`
+
+Créez un fichier `Bonjour.js` :
+
+```javascript
+function Bonjour(props) {
+  return <h1>Bonjour, {props.nom}!</h1>;
+}
+
+export default Bonjour;
+```
+
+#### Utilisation dans `App.js`
+
+Ajoutez ce composant dans le fichier `App.js` :
+
+```javascript
+import React from 'react';
+import Bonjour from './Bonjour';
+
+function App() {
+  return (
+    <div>
+      <Bonjour nom="Alice" />
+      <Bonjour nom="Bob" />
+      <Bonjour nom="Charlie" />
+    </div>
+  );
+}
+
+export default App;
+```
+
+#### Résultat attendu
+Lorsque vous exécutez l'application, vous verrez :
+
+```
+Bonjour, Alice!
+Bonjour, Bob!
+Bonjour, Charlie!
+```
 
 Dans `App.js`, importez et utilisez le composant :
 
@@ -202,4 +304,7 @@ export default Utilisateurs;
 1. Créez un composant `Articles` qui affiche une liste d'articles depuis une API.
 2. Ajoutez une fonction de recherche pour filtrer les articles par titre.
 
+## Conclusion
+
+React est une bibliothèque puissante qui permet de créer des applications web modernes. En suivant ces étapes, vous avez appris les bases de React : composants, état, gestion des événements, et interaction avec des APIs. Pour aller plus loin, explorez des concepts avancés comme les hooks personnalisés, le routing avec React Router, et la gestion de l'état global avec Redux.
 
