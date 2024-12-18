@@ -680,6 +680,144 @@ export default App;
 
 ## Étape 4 : État (« State ») dans les composants
 
+L'état est une manière de gérer des données dynamiques dans un composant. Contrairement aux props, l'état peut être modifié par le composant lui-même, ce qui permet de rendre l'interface utilisateur interactive.
+
+### Exemple avec `useState`
+
+La fonction `useState` permet d'ajouter un état local dans un composant fonctionnel.
+
+#### Exemple : Compteur simple
+
+```javascript
+import React, { useState } from 'react';
+
+function Compteur() {
+  const [compte, setCompte] = useState(0);
+
+  return (
+    <div>
+      <p>Vous avez cliqué {compte} fois.</p>
+      <button onClick={() => setCompte(compte + 1)}>
+        Cliquez-moi
+      </button>
+    </div>
+  );
+}
+
+export default Compteur;
+```
+
+#### Exemple : Formulaire avec état local
+
+```javascript
+import React, { useState } from 'react';
+
+function Formulaire() {
+  const [nom, setNom] = useState('');
+
+  const handleChange = (event) => {
+    setNom(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`Bonjour, ${nom}!`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Nom :
+        <input type="text" value={nom} onChange={handleChange} />
+      </label>
+      <button type="submit">Envoyer</button>
+    </form>
+  );
+}
+
+export default Formulaire;
+```
+
+### Exemple avec plusieurs états
+
+Vous pouvez gérer plusieurs états en utilisant plusieurs appels à `useState`.
+
+#### Exemple : Gestion de deux compteurs
+
+```javascript
+import React, { useState } from 'react';
+
+function Compteurs() {
+  const [compteur1, setCompteur1] = useState(0);
+  const [compteur2, setCompteur2] = useState(0);
+
+  return (
+    <div>
+      <div>
+        <p>Compteur 1 : {compteur1}</p>
+        <button onClick={() => setCompteur1(compteur1 + 1)}>Incrémenter Compteur 1</button>
+      </div>
+      <div>
+        <p>Compteur 2 : {compteur2}</p>
+        <button onClick={() => setCompteur2(compteur2 + 1)}>Incrémenter Compteur 2</button>
+      </div>
+    </div>
+  );
+}
+
+export default Compteurs;
+```
+
+### Exemple avancé : Liste dynamique
+
+#### Gestion d'une liste d'éléments
+
+```javascript
+import React, { useState } from 'react';
+
+function Liste() {
+  const [items, setItems] = useState([]);
+  const [nouvelItem, setNouvelItem] = useState('');
+
+  const ajouterItem = () => {
+    setItems([...items, nouvelItem]);
+    setNouvelItem('');
+  };
+
+  return (
+    <div>
+      <h2>Liste de courses</h2>
+      <input
+        type="text"
+        value={nouvelItem}
+        onChange={(e) => setNouvelItem(e.target.value)}
+        placeholder="Ajouter un article"
+      />
+      <button onClick={ajouterItem}>Ajouter</button>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default Liste;
+```
+
+### Concepts clés sur l'état
+
+1. **Initialisation** : `useState` accepte une valeur initiale pour l'état.
+2. **Mise à jour** : Utilisez la fonction fournie par `useState` pour mettre à jour l'état.
+3. **Composants contrôlés** : L'état peut être utilisé pour contrôler des formulaires et d'autres interactions utilisateur.
+
+### Exercices
+
+1. Créez un composant `TodoList` où l'utilisateur peut ajouter et supprimer des tâches.
+2. Implémentez un système de votes avec deux boutons : "Like" et "Dislike" qui affichent le total des votes.
+3. Ajoutez un champ de saisie pour filtrer les éléments d'une liste affichée à l'écran.
+
 L'état est une manière de gérer des données dynamiques dans un composant.
 
 ### Exemple avec `useState`
